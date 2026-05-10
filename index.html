@@ -4,161 +4,185 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para Mamá ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-page: #f4e9e2; /* Tono crema de fondo */
+            --bg-card: #fdfaf8; /* Tono blanco hueso de la tarjeta */
+            --text-title: #7d4e3a; /* Café oscuro para el título */
+            --text-body: #8c7a6b;  /* Café suave para la dedicatoria */
+        }
+
         body {
             margin: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f3e5d8; /* Color crema de fondo del video */
+            background-color: var(--bg-page);
             font-family: 'Poppins', sans-serif;
+            overflow: hidden;
         }
 
-        .container {
-            background-color: #fdf6f0;
+        /* Contenedor Principal (Tarjeta) */
+        .card-container {
+            background-color: var(--bg-card);
             width: 850px;
             height: 550px;
             border-radius: 40px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.03);
         }
 
-        .main-content {
+        /* Diseño de dos columnas (Rejilla) */
+        .content-layout {
             display: grid;
             grid-template-columns: 1.2fr 1fr;
-            padding: 60px 50px 20px 60px;
+            padding: 60px 60px 20px 70px;
             flex-grow: 1;
         }
 
         /* Lado Izquierdo: Texto */
-        .text-side h1 {
+        .dedication-text h1 {
             font-family: 'Dancing Script', cursive;
             font-size: 5rem;
-            color: #7d4e3a;
+            color: var(--text-title);
             margin: 0;
-            line-height: 1;
+            line-height: 1.1;
         }
 
-        .message {
-            color: #8c7a6b;
+        .dedication-text p {
+            color: var(--text-body);
             font-size: 1.05rem;
             line-height: 1.8;
             margin-top: 30px;
-            max-width: 380px;
+            max-width: 400px;
         }
 
         /* Lado Derecho: Árbol */
-        .tree-side {
+        .tree-display {
             position: relative;
             display: flex;
             justify-content: center;
             align-items: flex-end;
         }
 
-        .tree-container {
-            width: 300px;
-            height: 380px;
+        #tree-canvas {
+            width: 320px;
+            height: 400px;
             position: relative;
         }
 
-        .trunk {
+        .tree-trunk {
             position: absolute;
             bottom: 30px;
             left: 50%;
             width: 14px;
             height: 120px;
             background: #5d4037;
-            border-radius: 10px 10px 0 0;
+            border-radius: 10px;
             transform: translateX(-50%);
             z-index: 2;
         }
 
-        .flower {
+        /* Estilo de FLORES REALISTAS (Tupidas) */
+        .flower-cluster {
             position: absolute;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
+            width: 16px;
+            height: 16px;
             opacity: 0;
-            animation: bloom-video 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            /* Animación de crecimiento con rebote orgánico */
+            animation: bloom-organic 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        @keyframes bloom-video {
-            0% { transform: scale(0) translateY(0); opacity: 0; }
-            100% { transform: scale(1) translateY(0); opacity: 0.9; }
+        /* Pseudoelementos para crear volumen en la flor */
+        .flower-cluster::before, .flower-cluster::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            opacity: 0.8;
         }
 
-        /* Contador Inferior */
-        .counter-section {
-            background: #ffffff;
+        .flower-cluster::before {
+            transform: rotate(30deg) scale(1.1);
+        }
+
+        .flower-cluster::after {
+            transform: rotate(60deg) scale(0.9);
+        }
+
+        @keyframes bloom-organic {
+            0% { transform: scale(0) translateY(10px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 0.95; }
+        }
+
+        /* Sección del Contador Inferior */
+        .counter-box {
+            background-color: #ffffff;
             margin: 0 60px 50px 60px;
-            padding: 20px 30px;
+            padding: 25px 35px;
             border-radius: 15px;
-            border-top: 3px solid #7d4e3a;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border-top: 3px solid var(--text-title);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            display: flex;
+            justify-content: flex-start;
+            gap: 15px;
+            align-items: center;
         }
 
         .counter-label {
-            color: #5d4037;
+            color: var(--text-title);
             font-weight: 600;
             font-size: 1.1rem;
-            margin-bottom: 8px;
         }
 
-        .timer-digits {
-            color: #2d2d2d;
+        .timer-display {
+            color: #1a1a1a;
             font-size: 1.3rem;
             font-weight: 500;
             letter-spacing: 1px;
         }
 
-        /* Flores que caen (decoración abajo) */
-        .falling-flowers {
-            position: absolute;
-            bottom: 40px;
-            left: 550px;
-            display: flex;
-            gap: 15px;
-        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="main-content">
-        <div class="text-side">
+<div class="card-container">
+    <div class="content-layout">
+        <div class="dedication-text">
             <h1>Te amo Mamá</h1>
-            <div class="message">
+            <p>
                 Para la mujer más increíble de mi vida:<br><br>
                 Gracias por tu amor incondicional, tus cuidados y tu paciencia.<br><br>
                 Eres mi mayor inspiración y mi refugio más seguro.<br><br>
                 — ¡Feliz Día de las Madres!
-            </div>
+            </p>
         </div>
 
-        <div class="tree-side">
-            <div class="tree-container" id="tree">
-                <div class="trunk"></div>
+        <div class="tree-display">
+            <div id="tree-canvas">
+                <div class="tree-trunk"></div>
             </div>
         </div>
     </div>
 
-    <div class="counter-section">
+    <div class="counter-box">
         <div class="counter-label">Mi vida junto a ti comenzó hace...</div>
-        <div class="timer-digits" id="timer">00 años 000 días 00h 00m 00s</div>
+        <div class="timer-display" id="timer">Calculando momentos...</div>
     </div>
 </div>
 
 <script>
-    // Fecha de nacimiento: 22 de diciembre de 2006
+    // Tu fecha de nacimiento: 22 de diciembre de 2006
     const birthDate = new Date(2006, 11, 22, 10, 0, 0);
 
-    function updateTime() {
+    function updateCounter() {
         const now = new Date();
         const diff = now - birthDate;
 
@@ -172,34 +196,46 @@
             `${years} años, ${days} días, ${hours.toString().padStart(2,'0')}h ${mins.toString().padStart(2,'0')}m ${secs.toString().padStart(2,'0')}s`;
     }
 
-    function createTree() {
-        const tree = document.getElementById('tree');
-        // Paleta de colores exacta del video
-        const colors = ['#e91e63', '#ff4081', '#f48fb1', '#f06292', '#ad1457', '#ffeb3b'];
+    function generateHeartTree() {
+        const canvas = document.getElementById('tree-canvas');
+        
+        // Paleta de colores densa y tupida (Rojos, Rosas, Amarillos)
+        const colors = [
+            '#d63384', '#ff4d6d', '#ff758f', '#c9184a', '#ffb3c1', 
+            '#e91e63', '#ad1457', '#ffeb3b' // Toque de amarillo como el diseño original
+        ];
 
-        for (let i = 0; i < 150; i++) {
+        // Aumentamos la cantidad de flores a 180 para que se vea tupido
+        for (let i = 0; i < 180; i++) {
             const flower = document.createElement('div');
-            flower.className = 'flower';
+            flower.className = 'flower-cluster';
             
-            // Forma de corazón densa
+            // Algoritmo paramétrico de corazón denso
             const t = Math.random() * 2 * Math.PI;
             const x = 16 * Math.pow(Math.sin(t), 3);
             const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
             
-            const scale = 8.5; // Tamaño del corazón
+            // Escala para el tamaño total del corazón
+            const scale = 8.5; 
             flower.style.left = `calc(50% + ${x * scale}px)`;
             flower.style.top = `calc(35% + ${y * scale}px)`;
             
-            flower.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            flower.style.animationDelay = `${Math.random() * 4}s`; // Crecen poco a poco
+            // Asignamos color y un color ligeramente diferente para el volumen
+            const mainColor = colors[Math.floor(Math.random() * colors.length)];
+            flower.style.backgroundColor = mainColor;
+            flower.style.setProperty('--flower-color-alt', mainColor); // Para pseudoelementos si se desea variar
             
-            tree.appendChild(flower);
+            // Retraso de animación para crecimiento orgánico (hasta 5s)
+            flower.style.animationDelay = `${Math.random() * 5}s`;
+            
+            canvas.appendChild(flower);
         }
     }
 
-    createTree();
-    setInterval(updateTime, 1000);
-    updateTime();
+    // Ejecutamos la lógica
+    generateHeartTree();
+    setInterval(updateCounter, 1000);
+    updateCounter(); // Ejecución inicial
 </script>
 
 </body>
