@@ -3,125 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Te amo Mamá</title>
+    <title>Para mi Mamá ❤️</title>
     <style>
-        :root {
-            --pink: #ffafbd;
-            --rose: #ffc3a0;
-        }
         body {
             margin: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, var(--pink), var(--rose));
-            font-family: 'Arial', sans-serif;
-            color: #4a4a4a;
-        }
-        .container {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            text-align: center;
-            max-width: 500px;
-            width: 90%;
-        }
-        h1 { color: #d63384; font-size: 2.5rem; margin-bottom: 10px; }
-        .message { font-style: italic; margin-bottom: 20px; line-height: 1.6; }
-        
-        /* Contenedor del Árbol */
-        #tree-container {
-            height: 250px;
-            position: relative;
-            margin: 20px 0;
-        }
-        .trunk {
-            width: 10px;
-            height: 100px;
-            background: #8b4513;
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 5px;
-        }
-        .flower {
-            position: absolute;
-            background: #ff69b4;
-            width: 10px;
-            height: 100px;
-            border-radius: 50%;
-            opacity: 0;
-            animation: grow 3s forwards ease-out;
-        }
-        @keyframes grow {
-            to { opacity: 1; transform: translateY(-50px) scale(1.5); }
+            background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
         }
 
-        .timer {
-            font-size: 1.2rem;
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 350px;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 { color: #d63384; font-size: 2rem; margin-top: 0; }
+        p { color: #666; font-size: 0.9rem; line-height: 1.4; }
+
+        /* Contenedor del Árbol */
+        #tree-canvas {
+            position: relative;
+            width: 200px;
+            height: 250px;
+            margin: 0 auto;
+        }
+
+        .trunk {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            width: 8px;
+            height: 80px;
+            background: #5d4037;
+            border-radius: 4px;
+            transform: translateX(-50%);
+        }
+
+        /* Flores en forma de corazón */
+        .flower {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #ff4d6d;
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            opacity: 0;
+            filter: blur(0.5px);
+            animation: bloom 3s forwards;
+        }
+
+        @keyframes bloom {
+            0% { transform: scale(0) rotate(0deg); opacity: 0; }
+            100% { transform: scale(1) rotate(45deg); opacity: 0.8; }
+        }
+
+        .timer-box {
+            background: #fff;
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .timer-text {
+            font-size: 0.95rem;
             font-weight: bold;
             color: #333;
-            background: #fff;
-            padding: 10px;
-            border-radius: 10px;
-            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="card">
     <h1>Te amo Mamá</h1>
-    <p class="message">
-        Para la mujer más increíble de mi vida:<br>
-        Gracias por tu amor incondicional y tu paciencia.<br>
-        ¡Feliz Día de las Madres!
-    </p>
+    <p>Para la mujer más increíble de mi vida:<br>
+    Gracias por tu amor incondicional.<br>
+    ¡Feliz Día de las Madres!</p>
 
-    <div id="tree-container">
+    <div id="tree-canvas">
         <div class="trunk"></div>
     </div>
 
-    <div class="timer" id="timer">Cargando momentos...</div>
+    <div class="timer-box">
+        <div class="timer-text" id="timer">Calculando...</div>
+    </div>
 </div>
 
 <script>
-    // 1. CONFIGURA TU FECHA AQUÍ (Año, Mes - 1, Día, Hora, Minuto)
-    // Ejemplo: 22 de diciembre de 2006 a las 10:00 AM
-    const fechaNacimiento = new Date(2006, 11, 22, 10, 0, 0); 
+    // Configura tu fecha: (Año, Mes-1, Día, Hora, Minuto)
+    const fechaNacimiento = new Date(2006, 11, 22, 10, 0, 0);
 
-    function actualizarContador() {
-        const ahora = new Date();
-        const diferencia = ahora - fechaNacimiento;
+    function updateTimer() {
+        const now = new Date();
+        const diff = now - fechaNacimiento;
 
-        const anios = Math.floor(diferencia / (1000 * 60 * 60 * 24 * 365.25));
-        const dias = Math.floor((diferencia / (1000 * 60 * 60 * 24)) % 365.25);
-        const horas = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
-        const minutos = Math.floor((diferencia / (1000 * 60)) % 60);
-        const segundos = Math.floor((diferencia / 1000) % 60);
+        const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+        const days = Math.floor((diff / (1000 * 60 * 60 * 24)) % 365.25);
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const mins = Math.floor((diff / (1000 * 60)) % 60);
+        const secs = Math.floor((diff / 1000) % 60);
 
         document.getElementById('timer').innerHTML = 
             `Mi vida junto a ti comenzó hace...<br>
-            ${anios} años, ${dias} días, ${horas}h ${minutos}m ${segundos}s`;
+            ${years} años, ${days} días, ${hours}h ${mins}m ${secs}s`;
     }
 
-    // 2. CREAR FLORES DINÁMICAS
-    const container = document.getElementById('tree-container');
-    for (let i = 0; i < 50; i++) {
-        let flower = document.createElement('div');
-        flower.className = 'flower';
-        flower.style.left = (45 + Math.random() * 10) + '%';
-        flower.style.bottom = (50 + Math.random() * 100) + 'px';
-        flower.style.backgroundColor = `hsl(${330 + Math.random() * 30}, 100%, 70%)`;
-        flower.style.animationDelay = (Math.random() * 5) + 's';
-        container.appendChild(flower);
+    // Función para crear el corazón de flores
+    function createHeartTree() {
+        const canvas = document.getElementById('tree-canvas');
+        const numFlowers = 80;
+
+        for (let i = 0; i < numFlowers; i++) {
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            
+            // Ecuación paramétrica del corazón
+            const t = Math.random() * 2 * Math.PI;
+            const x = 16 * Math.pow(Math.sin(t), 3);
+            const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+            
+            // Escalar y posicionar
+            const scale = 5; 
+            const left = 100 + (x * scale);
+            const top = 80 + (y * scale);
+
+            flower.style.left = `${left}px`;
+            flower.style.top = `${top}px`;
+            
+            // Colores aleatorios en gama rosa/rojo
+            const colors = ['#ff4d6d', '#ff758f', '#ff8fa3', '#ffb3c1', '#c9184a'];
+            flower.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Retraso de animación para que "crezcan" poco a poco
+            flower.style.animationDelay = `${Math.random() * 4}s`;
+            
+            canvas.appendChild(flower);
+        }
     }
 
-    setInterval(actualizarContador, 1000);
-    actualizarContador();
+    createHeartTree();
+    setInterval(updateTimer, 1000);
+    updateTimer();
 </script>
 
 </body>
