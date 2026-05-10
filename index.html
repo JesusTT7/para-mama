@@ -3,150 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Mamá - Regalo Especial</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Para Mamá ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #f4e9e2;
-            --text-main: #5d4037;
-            --accent-pink: #d63384;
-        }
-
         body {
             margin: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #2c3e50; /* Color de fondo del escritorio */
+            background-color: #f3e5d8; /* Color crema de fondo del video */
             font-family: 'Poppins', sans-serif;
         }
 
-        /* Contenedor Principal estilo App */
-        .main-card {
-            background-color: var(--bg-color);
-            width: 800px;
-            height: 500px;
-            border-radius: 25px;
+        .container {
+            background-color: #fdf6f0;
+            width: 850px;
+            height: 550px;
+            border-radius: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.12);
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
-        /* Layout de dos columnas */
-        .content-wrapper {
+        .main-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            padding: 40px;
+            grid-template-columns: 1.2fr 1fr;
+            padding: 60px 50px 20px 60px;
             flex-grow: 1;
         }
 
-        /* Columna Izquierda: Texto */
-        .text-section {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            color: var(--text-main);
-        }
-
-        .title {
+        /* Lado Izquierdo: Texto */
+        .text-side h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 4.5rem;
-            color: #8b4513;
-            margin: 0 0 20px 0;
+            font-size: 5rem;
+            color: #7d4e3a;
+            margin: 0;
             line-height: 1;
         }
 
-        .dedication {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
+        .message {
+            color: #8c7a6b;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-top: 30px;
+            max-width: 380px;
         }
 
-        /* Columna Derecha: Árbol */
-        .tree-section {
+        /* Lado Derecho: Árbol */
+        .tree-side {
             position: relative;
             display: flex;
             justify-content: center;
             align-items: flex-end;
         }
 
-        #tree-canvas {
+        .tree-container {
             width: 300px;
-            height: 350px;
+            height: 380px;
             position: relative;
         }
 
         .trunk {
             position: absolute;
-            bottom: 20px;
+            bottom: 30px;
             left: 50%;
-            width: 12px;
-            height: 100px;
+            width: 14px;
+            height: 120px;
             background: #5d4037;
-            border-radius: 6px;
+            border-radius: 10px 10px 0 0;
             transform: translateX(-50%);
-            z-index: 1;
+            z-index: 2;
         }
 
         .flower {
             position: absolute;
             width: 14px;
             height: 14px;
-            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            border-radius: 50%;
             opacity: 0;
-            animation: bloom 2s forwards;
+            animation: bloom-video 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        @keyframes bloom {
-            to { opacity: 0.85; transform: scale(1.2) rotate(45deg); }
+        @keyframes bloom-video {
+            0% { transform: scale(0) translateY(0); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 0.9; }
         }
 
-        /* Sección inferior del contador */
-        .footer-counter {
-            background: white;
-            padding: 15px;
-            margin: 0 40px 30px 40px;
-            border-radius: 10px;
-            border-top: 2px solid #5d4037;
-            text-align: left;
+        /* Contador Inferior */
+        .counter-section {
+            background: #ffffff;
+            margin: 0 60px 50px 60px;
+            padding: 20px 30px;
+            border-radius: 15px;
+            border-top: 3px solid #7d4e3a;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
 
         .counter-label {
-            font-size: 0.85rem;
+            color: #5d4037;
             font-weight: 600;
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        .counter-digits {
             font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: #000;
+            margin-bottom: 8px;
         }
 
-        /* Decoración de flores en el piso */
-        .ground-flowers {
+        .timer-digits {
+            color: #2d2d2d;
+            font-size: 1.3rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        /* Flores que caen (decoración abajo) */
+        .falling-flowers {
             position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 40px;
+            bottom: 40px;
+            left: 550px;
             display: flex;
-            justify-content: space-around;
-            opacity: 0.6;
+            gap: 15px;
         }
     </style>
 </head>
 <body>
 
-<div class="main-card">
-    <div class="content-wrapper">
-        <div class="text-section">
-            <h1 class="title">Te amo Mamá</h1>
-            <div class="dedication">
+<div class="container">
+    <div class="main-content">
+        <div class="text-side">
+            <h1>Te amo Mamá</h1>
+            <div class="message">
                 Para la mujer más increíble de mi vida:<br><br>
                 Gracias por tu amor incondicional, tus cuidados y tu paciencia.<br><br>
                 Eres mi mayor inspiración y mi refugio más seguro.<br><br>
@@ -154,24 +141,24 @@
             </div>
         </div>
 
-        <div class="tree-section">
-            <div id="tree-canvas">
+        <div class="tree-side">
+            <div class="tree-container" id="tree">
                 <div class="trunk"></div>
             </div>
         </div>
     </div>
 
-    <div class="footer-counter">
+    <div class="counter-section">
         <div class="counter-label">Mi vida junto a ti comenzó hace...</div>
-        <div class="counter-digits" id="timer">00 años 00 días 00:00:00</div>
+        <div class="timer-digits" id="timer">00 años 000 días 00h 00m 00s</div>
     </div>
 </div>
 
 <script>
-    // Tu fecha de nacimiento: 22 de Dic de 2006
+    // Fecha de nacimiento: 22 de diciembre de 2006
     const birthDate = new Date(2006, 11, 22, 10, 0, 0);
 
-    function updateTimer() {
+    function updateTime() {
         const now = new Date();
         const diff = now - birthDate;
 
@@ -181,36 +168,38 @@
         const mins = Math.floor((diff / (1000 * 60)) % 60);
         const secs = Math.floor((diff / 1000) % 60);
 
-        document.getElementById('timer').innerHTML = 
-            `${years} años ${days} días ${hours.toString().padStart(2, '0')}h ${mins.toString().padStart(2, '0')}m ${secs.toString().padStart(2, '0')}s`;
+        document.getElementById('timer').innerText = 
+            `${years} años, ${days} días, ${hours.toString().padStart(2,'0')}h ${mins.toString().padStart(2,'0')}m ${secs.toString().padStart(2,'0')}s`;
     }
 
-    function buildTree() {
-        const canvas = document.getElementById('tree-canvas');
-        const colors = ['#ff4d6d', '#ff758f', '#ff8fa3', '#c9184a', '#ffb3c1'];
-        
-        for (let i = 0; i < 120; i++) {
+    function createTree() {
+        const tree = document.getElementById('tree');
+        // Paleta de colores exacta del video
+        const colors = ['#e91e63', '#ff4081', '#f48fb1', '#f06292', '#ad1457', '#ffeb3b'];
+
+        for (let i = 0; i < 150; i++) {
             const flower = document.createElement('div');
             flower.className = 'flower';
             
-            // Algoritmo de corazón
+            // Forma de corazón densa
             const t = Math.random() * 2 * Math.PI;
             const x = 16 * Math.pow(Math.sin(t), 3);
             const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
             
-            const scale = 7; 
+            const scale = 8.5; // Tamaño del corazón
             flower.style.left = `calc(50% + ${x * scale}px)`;
-            flower.style.top = `calc(40% + ${y * scale}px)`;
-            flower.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            flower.style.animationDelay = `${Math.random() * 3}s`;
+            flower.style.top = `calc(35% + ${y * scale}px)`;
             
-            canvas.appendChild(flower);
+            flower.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            flower.style.animationDelay = `${Math.random() * 4}s`; // Crecen poco a poco
+            
+            tree.appendChild(flower);
         }
     }
 
-    buildTree();
-    setInterval(updateTimer, 1000);
-    updateTimer();
+    createTree();
+    setInterval(updateTime, 1000);
+    updateTime();
 </script>
 
 </body>
