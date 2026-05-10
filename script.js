@@ -1,311 +1,175 @@
-class EmotionalTree {
-    constructor() {
-        this.config = {
-            trunkColor: '#6B5344',
-            leavesColor: '#2ecc71',
-            flowersColor: '#e74c3c',
-            message: 'Un árbol que crece con cada momento compartido. Sus raíces representan los cimientos de nuestros recuerdos, sus ramas simbolizan el crecimiento juntos, y sus hojas son los hermosos momentos que nunca olvidaremos. ¡Gracias por cada año compartido! 🌳✨',
-            years: 5
-        };
-        
-        this.animationRunning = false;
-        this.messageIndex = 0;
-        this.yearCounter = 0;
-        
-        this.initElements();
-        this.setupEventListeners();
-        this.startAnimation();
-    }
+let state = {
+    message: "Para la mujer más increíble de mi vida:\n\nGracias por tu amor incondicional, tus cuidados y tu paciencia.\n\nEres mi mayor inspiración y mi refugio más seguro.\n\n¡Feliz Día de las Madres!",
+    startDate: new Date("2024-05-10"),
+    counterLabel: "Mi vida junto a ti comenzó hace...",
+    trunkColor: "#8B4513",
+    colors: {
+        red: "#DC143C",
+        pink: "#FF69B4",
+        yellow: "#FFD700",
+        purple: "#DDA0DD"
+    },
+    flowerCount: 150
+};
+
+function init() {
+    const defaultDate = new Date();
+    defaultDate.setFullYear(defaultDate.getFullYear() - 2);
+    document.getElementById('startDate').valueAsDate = defaultDate;
+    state.startDate = defaultDate;
+
+    revealMessage();
+    generateFlowers();
+    updateTimer();
+    setInterval(updateTimer, 1000);
+}
+
+function revealMessage() {
+    const messageElement = document.getElementById('message');
+    const text = state.message;
+    messageElement.textContent = '';
     
-    initElements() {
-        this.trunk = document.querySelector('.trunk');
-        this.branches = document.querySelectorAll('.branch');
-        this.leaves = document.querySelectorAll('.leaf');
-        this.flowers = document.querySelectorAll('.flower');
-        this.messageReveal = document.getElementById('messageReveal');
-        this.yearCounterDisplay = document.getElementById('yearCounter');
-        this.momentText = document.getElementById('momentText');
-        
-        this.treeColorInput = document.getElementById('treeColor');
-        this.leavesColorInput = document.getElementById('leavesColor');
-        this.messageInput = document.getElementById('messageInput');
-        this.yearsInput = document.getElementById('yearsInput');
-        this.applyBtn = document.getElementById('applyBtn');
-        this.resetBtn = document.getElementById('resetBtn');
-    }
+    let index = 0;
+    const speed = 30;
     
-    setupEventListeners() {
-        this.applyBtn.addEventListener('click', () => this.applyCustomization());
-        this.resetBtn.addEventListener('click', () => this.reset());
-    }
-    
-    startAnimation() {
-        if (this.animationRunning) return;
-        this.animationRunning = true;
-        
-        // Reiniciar elementos visuales
-        this.resetVisuals();
-        
-        // Iniciar animaciones secuenciales
-        setTimeout(() => this.revealMessage(), 500);
-        setTimeout(() => this.animateCounter(), 6500);
-    }
-    
-    revealMessage() {
-        this.messageReveal.innerHTML = '';
-        this.messageIndex = 0;
-        
-        const message = this.config.message;
-        const typeSpeed = 30; // milisegundos por carácter
-        
-        const typeCharacter = () => {
-            if (this.messageIndex < message.length) {
-                const char = message[this.messageIndex];
-                
-                if (char === '\n') {
-                    this.messageReveal.innerHTML += '<br>';
-                } else {
-                    const span = document.createElement('span');
-                    span.textContent = char;
-                    span.style.animation = `fadeInChar 0.5s ease-out ${this.messageIndex * 0.02}s both`;
-                    this.messageReveal.appendChild(span);
-                }
-                
-                this.messageIndex++;
-                setTimeout(typeCharacter, typeSpeed);
-            }
-        };
-        
-        // Agregar animación CSS para los caracteres
-        if (!document.getElementById('charAnimation')) {
-            const style = document.createElement('style');
-            style.id = 'charAnimation';
-            style.textContent = `
-                @keyframes fadeInChar {
-                    0% { opacity: 0; }
-                    100% { opacity: 1; }
-                }
-            `;
-            document.head.appendChild(style);
+    function typeMessage() {
+        if (index < text.length) {
+            messageElement.textContent += text[index];
+            index++;
+            setTimeout(typeMessage, speed);
         }
-        
-        typeCharacter();
     }
     
-    animateCounter() {
-        this.yearCounter = 0;
-        const targetYears = this.config.years;
-        const duration = 2000; // 2 segundos
-        const increment = targetYears / (duration / 50);
+    typeMessage();
+}
+
+function generateFlowers() {
+    const container = document.getElementById('flowersContainer');
+    container.innerHTML = '';
+    
+    const colors = [state.colors.red, state.colors.pink, state.colors.yellow, state.colors.purple];
+    const heartPattern = generateHeartShape(state.flowerCount);
+    
+    heartPattern.forEach((pos, index) => {
+        const flower = createFlower(pos.x, pos.y, colors[Math.floor(Math.random() * colors.length)]);
+        flower.style.animationDelay = `${index * 20}ms`;
+        container.appendChild(flower);
+    });
+    
+    document.querySelector('.trunk').setAttribute('fill', state.trunkColor);
+}
+
+function generateHeartShape(count) {
+    const points = [];
+    const centerX = 150;
+    const centerY = 120;
+    const scaleX = 60;
+    const scaleY = 60;
+    
+    for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const radius = Math.random() * 40 + 20;
         
-        const updateCounter = () => {
-            this.yearCounter += increment;
-            
-            if (this.yearCounter >= targetYears) {
-                this.yearCounter = targetYears;
-            } else {
-                setTimeout(updateCounter, 50);
-            }
-            
-            // Actualizar visualización con animación
-            this.yearCounterDisplay.textContent = Math.floor(this.yearCounter);
-            this.yearCounterDisplay.style.animation = 'none';
-            setTimeout(() => {
-                this.yearCounterDisplay.style.animation = 'counterPulse 0.5s ease';
-            }, 10);
-            
-            // Cambiar texto de momentos
-            const momentTexts = [
-                'momentos mágicos',
-                'risas compartidas',
-                'recuerdos especiales',
-                'abrazos infinitos',
-                'sueños juntos'
-            ];
-            
-            const index = Math.floor(this.yearCounter) % momentTexts.length;
-            this.momentText.textContent = momentTexts[index];
-        };
+        let x = centerX + Math.sin(angle) ** 3 * scaleX * radius / 40;
+        let y = centerY - (Math.cos(angle) - 0.25 * Math.cos(2 * angle)) * scaleY * radius / 40;
         
-        updateCounter();
+        x += (Math.random() - 0.5) * 10;
+        y += (Math.random() - 0.5) * 10;
+        
+        points.push({ x, y });
     }
     
-    resetVisuals() {
-        // Resetear animaciones de ramas
-        this.branches.forEach(branch => {
-            branch.style.animation = 'none';
-            setTimeout(() => {
-                branch.style.animation = '';
-            }, 10);
-        });
+    return points;
+}
+
+function createFlower(x, y, color) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    svg.setAttribute('class', 'flower');
+    svg.setAttribute('transform', `translate(${x}, ${y})`);
+    
+    for (let i = 0; i < 5; i++) {
+        const angle = (i / 5) * Math.PI * 2;
+        const petX = Math.cos(angle) * 8;
+        const petY = Math.sin(angle) * 8;
         
-        // Resetear hojas
-        this.leaves.forEach(leaf => {
-            leaf.style.animation = 'none';
-            leaf.style.opacity = '0';
-            setTimeout(() => {
-                leaf.style.animation = '';
-            }, 10);
-        });
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', petX);
+        circle.setAttribute('cy', petY);
+        circle.setAttribute('r', '6');
+        circle.setAttribute('fill', color);
         
-        // Resetear flores
-        this.flowers.forEach(flower => {
-            flower.style.animation = 'none';
-            flower.style.opacity = '0';
-            setTimeout(() => {
-                flower.style.animation = '';
-            }, 10);
-        });
-        
-        // Resetear mensaje
-        this.messageReveal.innerHTML = '';
-        this.messageIndex = 0;
+        svg.appendChild(circle);
     }
     
-    applyCustomization() {
-        // Actualizar configuración
-        this.config.trunkColor = this.treeColorInput.value;
-        this.config.leavesColor = this.leavesColorInput.value;
-        this.config.message = this.messageInput.value || this.config.message;
-        this.config.years = parseInt(this.yearsInput.value) || 5;
-        
-        // Aplicar colores
-        this.trunk.style.fill = this.config.trunkColor;
-        
-        this.branches.forEach(branch => {
-            const randomShade = this.adjustColor(this.config.trunkColor, -20);
-            branch.style.stroke = randomShade;
-        });
-        
-        this.leaves.forEach(leaf => {
-            leaf.style.fill = this.config.leavesColor;
-        });
-        
-        // Reiniciar animación
-        this.animationRunning = false;
-        this.startAnimation();
-        
-        // Mostrar feedback
-        this.showNotification('¡Cambios aplicados! 🎨');
-    }
+    const center = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    center.setAttribute('cx', '0');
+    center.setAttribute('cy', '0');
+    center.setAttribute('r', '4');
+    center.setAttribute('fill', '#FFD700');
+    svg.appendChild(center);
     
-    adjustColor(color, percent) {
-        const num = parseInt(color.replace('#', ''), 16);
-        const amt = Math.round(2.55 * percent);
-        const R = Math.min(255, Math.max(0, (num >> 16) + amt));
-        const G = Math.min(255, Math.max(0, (num >> 8 & 0x00FF) + amt));
-        const B = Math.min(255, Math.max(0, (num & 0x0000FF) + amt));
-        return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
-    }
+    return svg;
+}
+
+function updateTimer() {
+    const now = new Date();
+    const start = state.startDate;
+    const diff = now - start;
     
-    reset() {
-        // Resetear inputs
-        this.treeColorInput.value = '#6B5344';
-        this.leavesColorInput.value = '#2ecc71';
-        this.messageInput.value = '';
-        this.yearsInput.value = '5';
-        
-        // Resetear configuración
-        this.config = {
-            trunkColor: '#6B5344',
-            leavesColor: '#2ecc71',
-            flowersColor: '#e74c3c',
-            message: 'Un árbol que crece con cada momento compartido. Sus raíces representan los cimientos de nuestros recuerdos, sus ramas simbolizan el crecimiento juntos, y sus hojas son los hermosos momentos que nunca olvidaremos. ¡Gracias por cada año compartido! 🌳✨',
-            years: 5
-        };
-        
-        // Aplicar colores por defecto
-        this.trunk.style.fill = this.config.trunkColor;
-        this.leaves.forEach(leaf => {
-            leaf.style.fill = this.config.leavesColor;
-        });
-        
-        // Reiniciar animación
-        this.animationRunning = false;
-        this.startAnimation();
-        
-        this.showNotification('¡Árbol reiniciado! 🌳');
-    }
+    const totalSeconds = Math.floor(diff / 1000);
+    const totalMinutes = Math.floor(totalSeconds / 60);
+    const totalHours = Math.floor(totalMinutes / 60);
+    const totalDays = Math.floor(totalHours / 24);
+    const totalYears = Math.floor(totalDays / 365.25);
     
-    showNotification(message) {
-        const notification = document.createElement('div');
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            font-weight: bold;
-            z-index: 1000;
-            animation: slideInRight 0.5s ease;
-        `;
-        notification.textContent = message;
-        
-        document.body.appendChild(notification);
-        
+    const years = totalYears;
+    const hours = Math.floor((totalHours % 24));
+    const minutes = Math.floor((totalMinutes % 60));
+    const seconds = totalSeconds % 60;
+    
+    animateNumber('years', years);
+    animateNumber('hours', hours);
+    animateNumber('minutes', minutes);
+    animateNumber('seconds', seconds);
+    
+    document.getElementById('counterLabel').textContent = state.counterLabel;
+}
+
+function animateNumber(elementId, newValue) {
+    const element = document.getElementById(elementId);
+    const currentValue = parseInt(element.textContent) || 0;
+    
+    if (currentValue !== newValue) {
+        element.style.animation = 'none';
         setTimeout(() => {
-            notification.style.animation = 'slideOutRight 0.5s ease';
-            setTimeout(() => notification.remove(), 500);
-        }, 2000);
+            element.style.animation = 'countPulse 0.5s ease-out';
+            element.textContent = String(newValue).padStart(2, '0');
+        }, 10);
+    } else {
+        element.textContent = String(newValue).padStart(2, '0');
     }
 }
 
-// Agregar animaciones de notificación
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideInRight {
-        from {
-            opacity: 0;
-            transform: translateX(100px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
+function applyChanges() {
+    state.message = document.getElementById('messageInput').value;
+    state.startDate = document.getElementById('startDate').valueAsDate || new Date();
+    state.counterLabel = document.getElementById('counterLabel').value;
+    state.trunkColor = document.getElementById('trunkColor').value;
+    state.colors.red = document.getElementById('colorRed').value;
+    state.colors.pink = document.getElementById('colorPink').value;
+    state.colors.yellow = document.getElementById('colorYellow').value;
+    state.colors.purple = document.getElementById('colorPurple').value;
+    state.flowerCount = parseInt(document.getElementById('flowerCount').value);
     
-    @keyframes slideOutRight {
-        from {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        to {
-            opacity: 0;
-            transform: translateX(100px);
-        }
-    }
-`;
-document.head.appendChild(style);
-
-// Inicializar la aplicación
-document.addEventListener('DOMContentLoaded', () => {
-    new EmotionalTree();
+    revealMessage();
+    generateFlowers();
+    updateTimer();
     
-    // Efecto de partículas flotantes (opcional, para más magia)
-    createFloatingParticles();
-});
-
-function createFloatingParticles() {
-    const container = document.querySelector('.tree-container');
-    const particleCount = 10;
-    
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.style.cssText = `
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
-            pointer-events: none;
-            animation: float ${3 + Math.random() * 2}s infinite ease-in-out;
-            animation-delay: ${Math.random() * 2}s;
-            left: ${Math.random() * 100}%;
-            top: ${Math.random() * 100}%;
-        `;
-        container.appendChild(particle);
-    }
+    alert('✨ ¡Cambios aplicados correctamente! 🌸');
 }
+
+function downloadCard() {
+    alert('📥 Para descargar: Usa tu navegador (botón derecho > Captura de pantalla) o copia como imagen con Print Screen.');
+}
+
+document.addEventListener('DOMContentLoaded', init);
