@@ -3,112 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Árbol que Crece - Recuerdo Digital</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>🌸 Árbol del Corazón - Recuerdo Emotivo</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="background"></div>
+    
     <div class="container">
-        <div class="tree-container">
-            <!-- Cielo con estrellas -->
-            <div class="sky">
-                <div class="stars"></div>
-                <div class="sun"></div>
-            </div>
-            
-            <!-- Árbol -->
-            <svg class="tree-svg" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid meet">
-                <!-- Raíces -->
-                <g class="roots">
-                    <path d="M 200 450 Q 180 480 160 490" stroke="#8B6F47" stroke-width="8" fill="none" stroke-linecap="round"/>
-                    <path d="M 200 450 Q 220 480 240 490" stroke="#8B6F47" stroke-width="8" fill="none" stroke-linecap="round"/>
-                    <path d="M 200 450 Q 200 480 200 495" stroke="#8B6F47" stroke-width="10" fill="none" stroke-linecap="round"/>
-                </g>
-                
-                <!-- Tronco principal -->
-                <path class="trunk" d="M 190 450 L 210 450 L 208 350 L 192 350 Z" fill="#6B5344" />
-                
-                <!-- Ramas principales -->
-                <g class="branches">
-                    <!-- Rama izquierda 1 -->
-                    <path class="branch branch-left-1" d="M 195 400 Q 160 390 140 370" stroke="#7A6654" stroke-width="12" fill="none" stroke-linecap="round"/>
-                    <!-- Rama derecha 1 -->
-                    <path class="branch branch-right-1" d="M 205 400 Q 240 390 260 370" stroke="#7A6654" stroke-width="12" fill="none" stroke-linecap="round"/>
-                    
-                    <!-- Rama izquierda 2 -->
-                    <path class="branch branch-left-2" d="M 194 370 Q 150 355 120 330" stroke="#8B7355" stroke-width="10" fill="none" stroke-linecap="round"/>
-                    <!-- Rama derecha 2 -->
-                    <path class="branch branch-right-2" d="M 206 370 Q 250 355 280 330" stroke="#8B7355" stroke-width="10" fill="none" stroke-linecap="round"/>
-                    
-                    <!-- Rama izquierda 3 -->
-                    <path class="branch branch-left-3" d="M 192 340 Q 150 320 110 290" stroke="#9A8469" stroke-width="8" fill="none" stroke-linecap="round"/>
-                    <!-- Rama derecha 3 -->
-                    <path class="branch branch-right-3" d="M 208 340 Q 250 320 290 290" stroke="#9A8469" stroke-width="8" fill="none" stroke-linecap="round"/>
-                </g>
-                
-                <!-- Follaje (hojas) -->
-                <g class="foliage">
-                    <!-- Nivel superior -->
-                    <circle class="leaf leaf-1" cx="200" cy="220" r="45" fill="#2ecc71" opacity="0"/>
-                    <circle class="leaf leaf-2" cx="140" cy="280" r="50" fill="#27ae60" opacity="0"/>
-                    <circle class="leaf leaf-3" cx="260" cy="280" r="50" fill="#27ae60" opacity="0"/>
-                    <circle class="leaf leaf-4" cx="120" cy="340" r="45" fill="#2ecc71" opacity="0"/>
-                    <circle class="leaf leaf-5" cx="280" cy="340" r="45" fill="#2ecc71" opacity="0"/>
-                    <circle class="leaf leaf-6" cx="100" cy="380" r="40" fill="#27ae60" opacity="0"/>
-                    <circle class="leaf leaf-7" cx="300" cy="380" r="40" fill="#27ae60" opacity="0"/>
-                </g>
-                
-                <!-- Flores y detalles -->
-                <g class="flowers">
-                    <circle class="flower flower-1" cx="150" cy="260" r="6" fill="#e74c3c" opacity="0"/>
-                    <circle class="flower flower-2" cx="250" cy="300" r="6" fill="#e74c3c" opacity="0"/>
-                    <circle class="flower flower-3" cx="180" cy="340" r="6" fill="#f39c12" opacity="0"/>
-                    <circle class="flower flower-4" cx="220" cy="360" r="6" fill="#f39c12" opacity="0"/>
-                </g>
-            </svg>
-            
-            <!-- Contador de momentos -->
-            <div class="counter-box">
-                <div class="counter-label">Años Compartidos</div>
-                <div class="counter-display" id="yearCounter">0</div>
-                <div class="counter-subtext" id="momentText">momentos mágicos</div>
-            </div>
-        </div>
-        
-        <!-- Panel de mensaje emotivo -->
-        <div class="message-panel">
-            <div class="message-content">
-                <div class="message-header">✨ Tu Árbol Especial ✨</div>
-                <div class="message-reveal" id="messageReveal">
-                    <!-- El mensaje se revelará mientras el árbol crece -->
+        <div class="card">
+            <div class="content-wrapper">
+                <div class="text-section">
+                    <div class="message-container">
+                        <p class="message" id="message"></p>
+                    </div>
                 </div>
-                <div class="message-footer">Hecho con ❤️ el 10 de Mayo de 2026</div>
+
+                <div class="tree-section">
+                    <svg class="heart-tree" viewBox="0 0 300 400" id="heartTree">
+                        <rect class="trunk" x="130" y="240" width="40" height="120" rx="10"/>
+                        <g class="flowers-container" id="flowersContainer"></g>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="counter-section">
+                <div class="counter-label" id="counterLabel">Mi vida junto a ti comenzó hace...</div>
+                <div class="timer-display" id="timerDisplay">
+                    <span class="time-unit">
+                        <span class="time-number" id="years">0</span>
+                        <span class="time-label">años</span>
+                    </span>
+                    <span class="time-unit">
+                        <span class="time-number" id="hours">0</span>
+                        <span class="time-label">horas</span>
+                    </span>
+                    <span class="time-unit">
+                        <span class="time-number" id="minutes">0</span>
+                        <span class="time-label">minutos</span>
+                    </span>
+                    <span class="time-unit">
+                        <span class="time-number" id="seconds">0</span>
+                        <span class="time-label">segundos</span>
+                    </span>
+                </div>
             </div>
         </div>
-        
-        <!-- Controles personalizables -->
-        <div class="controls">
-            <h3>🎨 Personaliza tu Árbol</h3>
+
+        <div class="control-panel">
+            <h3>✨ Personaliza tu recuerdo</h3>
+            
             <div class="control-group">
-                <label for="treeColor">Color del Árbol:</label>
-                <input type="color" id="treeColor" value="#6B5344">
+                <label>Escribe tu mensaje:</label>
+                <textarea id="messageInput" placeholder="Para la mujer más increíble de mi vida...">Para la mujer más increíble de mi vida:
+
+Gracias por tu amor incondicional, tus cuidados y tu paciencia.
+
+Eres mi mayor inspiración y mi refugio más seguro.
+
+¡Feliz Día de las Madres!</textarea>
             </div>
+
             <div class="control-group">
-                <label for="leavesColor">Color de Hojas:</label>
-                <input type="color" id="leavesColor" value="#2ecc71">
+                <label>Fecha de inicio (YYYY-MM-DD):</label>
+                <input type="date" id="startDate">
             </div>
+
             <div class="control-group">
-                <label for="messageInput">Tu Mensaje Emotivo:</label>
-                <textarea id="messageInput" placeholder="Escribe tu mensaje especial aquí..."></textarea>
+                <label>Etiqueta del contador:</label>
+                <input type="text" id="counterLabel" placeholder="Mi vida junto a ti comenzó hace...">
             </div>
+
             <div class="control-group">
-                <label for="yearsInput">Años/Momentos Compartidos:</label>
-                <input type="number" id="yearsInput" value="5" min="1">
+                <label>Color del tronco:</label>
+                <input type="color" id="trunkColor" value="#8B4513">
             </div>
-            <button id="applyBtn" class="apply-btn">🚀 Aplicar Cambios</button>
-            <button id="resetBtn" class="reset-btn">🔄 Reiniciar Árbol</button>
+
+            <div class="color-section">
+                <label>🌸 Colores de flores:</label>
+                <div class="color-picker-group">
+                    <div>
+                        <label>Rojo:</label>
+                        <input type="color" id="colorRed" value="#DC143C">
+                    </div>
+                    <div>
+                        <label>Rosa:</label>
+                        <input type="color" id="colorPink" value="#FF69B4">
+                    </div>
+                    <div>
+                        <label>Amarillo:</label>
+                        <input type="color" id="colorYellow" value="#FFD700">
+                    </div>
+                    <div>
+                        <label>Púrpura:</label>
+                        <input type="color" id="colorPurple" value="#DDA0DD">
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Cantidad de flores:</label>
+                <input type="number" id="flowerCount" min="50" max="500" value="150" step="10">
+            </div>
+
+            <button class="btn-apply" onclick="applyChanges()">🎉 Aplicar Cambios</button>
+            <button class="btn-download" onclick="downloadCard()">💾 Descargar</button>
         </div>
     </div>
-    
+
     <script src="script.js"></script>
 </body>
 </html>
