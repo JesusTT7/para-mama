@@ -3,108 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para mi Mamá ❤️</title>
+    <title>Para Mamá - Regalo Especial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #f4e9e2;
+            --text-main: #5d4037;
+            --accent-pink: #d63384;
+        }
+
         body {
             margin: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #2c3e50; /* Color de fondo del escritorio */
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Contenedor Principal estilo App */
+        .main-card {
+            background-color: var(--bg-color);
+            width: 800px;
+            height: 500px;
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
             overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            position: relative;
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.9);
+        /* Layout de dos columnas */
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             padding: 40px;
-            border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            text-align: center;
-            width: 350px;
-            position: relative;
-            z-index: 10;
+            flex-grow: 1;
         }
 
-        h1 { color: #d63384; font-size: 2rem; margin-top: 0; }
-        p { color: #666; font-size: 0.9rem; line-height: 1.4; }
+        /* Columna Izquierda: Texto */
+        .text-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: var(--text-main);
+        }
 
-        /* Contenedor del Árbol */
-        #tree-canvas {
+        .title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            color: #8b4513;
+            margin: 0 0 20px 0;
+            line-height: 1;
+        }
+
+        .dedication {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Columna Derecha: Árbol */
+        .tree-section {
             position: relative;
-            width: 200px;
-            height: 250px;
-            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        #tree-canvas {
+            width: 300px;
+            height: 350px;
+            position: relative;
         }
 
         .trunk {
             position: absolute;
             bottom: 20px;
             left: 50%;
-            width: 8px;
-            height: 80px;
+            width: 12px;
+            height: 100px;
             background: #5d4037;
-            border-radius: 4px;
+            border-radius: 6px;
             transform: translateX(-50%);
+            z-index: 1;
         }
 
-        /* Flores en forma de corazón */
         .flower {
             position: absolute;
-            width: 12px;
-            height: 12px;
-            background: #ff4d6d;
+            width: 14px;
+            height: 14px;
             border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
             opacity: 0;
-            filter: blur(0.5px);
-            animation: bloom 3s forwards;
+            animation: bloom 2s forwards;
         }
 
         @keyframes bloom {
-            0% { transform: scale(0) rotate(0deg); opacity: 0; }
-            100% { transform: scale(1) rotate(45deg); opacity: 0.8; }
+            to { opacity: 0.85; transform: scale(1.2) rotate(45deg); }
         }
 
-        .timer-box {
-            background: #fff;
+        /* Sección inferior del contador */
+        .footer-counter {
+            background: white;
             padding: 15px;
-            border-radius: 15px;
-            margin-top: 20px;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+            margin: 0 40px 30px 40px;
+            border-radius: 10px;
+            border-top: 2px solid #5d4037;
+            text-align: left;
         }
 
-        .timer-text {
-            font-size: 0.95rem;
-            font-weight: bold;
+        .counter-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 5px;
             color: #333;
+        }
+
+        .counter-digits {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #000;
+        }
+
+        /* Decoración de flores en el piso */
+        .ground-flowers {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40px;
+            display: flex;
+            justify-content: space-around;
+            opacity: 0.6;
         }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h1>Te amo Mamá</h1>
-    <p>Para la mujer más increíble de mi vida:<br>
-    Gracias por tu amor incondicional.<br>
-    ¡Feliz Día de las Madres!</p>
+<div class="main-card">
+    <div class="content-wrapper">
+        <div class="text-section">
+            <h1 class="title">Te amo Mamá</h1>
+            <div class="dedication">
+                Para la mujer más increíble de mi vida:<br><br>
+                Gracias por tu amor incondicional, tus cuidados y tu paciencia.<br><br>
+                Eres mi mayor inspiración y mi refugio más seguro.<br><br>
+                — ¡Feliz Día de las Madres!
+            </div>
+        </div>
 
-    <div id="tree-canvas">
-        <div class="trunk"></div>
+        <div class="tree-section">
+            <div id="tree-canvas">
+                <div class="trunk"></div>
+            </div>
+        </div>
     </div>
 
-    <div class="timer-box">
-        <div class="timer-text" id="timer">Calculando...</div>
+    <div class="footer-counter">
+        <div class="counter-label">Mi vida junto a ti comenzó hace...</div>
+        <div class="counter-digits" id="timer">00 años 00 días 00:00:00</div>
     </div>
 </div>
 
 <script>
-    // Configura tu fecha: (Año, Mes-1, Día, Hora, Minuto)
-    const fechaNacimiento = new Date(2006, 11, 22, 10, 0, 0);
+    // Tu fecha de nacimiento: 22 de Dic de 2006
+    const birthDate = new Date(2006, 11, 22, 10, 0, 0);
 
     function updateTimer() {
         const now = new Date();
-        const diff = now - fechaNacimiento;
+        const diff = now - birthDate;
 
         const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
         const days = Math.floor((diff / (1000 * 60 * 60 * 24)) % 365.25);
@@ -113,44 +182,33 @@
         const secs = Math.floor((diff / 1000) % 60);
 
         document.getElementById('timer').innerHTML = 
-            `Mi vida junto a ti comenzó hace...<br>
-            ${years} años, ${days} días, ${hours}h ${mins}m ${secs}s`;
+            `${years} años ${days} días ${hours.toString().padStart(2, '0')}h ${mins.toString().padStart(2, '0')}m ${secs.toString().padStart(2, '0')}s`;
     }
 
-    // Función para crear el corazón de flores
-    function createHeartTree() {
+    function buildTree() {
         const canvas = document.getElementById('tree-canvas');
-        const numFlowers = 80;
-
-        for (let i = 0; i < numFlowers; i++) {
+        const colors = ['#ff4d6d', '#ff758f', '#ff8fa3', '#c9184a', '#ffb3c1'];
+        
+        for (let i = 0; i < 120; i++) {
             const flower = document.createElement('div');
             flower.className = 'flower';
             
-            // Ecuación paramétrica del corazón
+            // Algoritmo de corazón
             const t = Math.random() * 2 * Math.PI;
             const x = 16 * Math.pow(Math.sin(t), 3);
             const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
             
-            // Escalar y posicionar
-            const scale = 5; 
-            const left = 100 + (x * scale);
-            const top = 80 + (y * scale);
-
-            flower.style.left = `${left}px`;
-            flower.style.top = `${top}px`;
-            
-            // Colores aleatorios en gama rosa/rojo
-            const colors = ['#ff4d6d', '#ff758f', '#ff8fa3', '#ffb3c1', '#c9184a'];
-            flower.style.background = colors[Math.floor(Math.random() * colors.length)];
-            
-            // Retraso de animación para que "crezcan" poco a poco
-            flower.style.animationDelay = `${Math.random() * 4}s`;
+            const scale = 7; 
+            flower.style.left = `calc(50% + ${x * scale}px)`;
+            flower.style.top = `calc(40% + ${y * scale}px)`;
+            flower.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            flower.style.animationDelay = `${Math.random() * 3}s`;
             
             canvas.appendChild(flower);
         }
     }
 
-    createHeartTree();
+    buildTree();
     setInterval(updateTimer, 1000);
     updateTimer();
 </script>
