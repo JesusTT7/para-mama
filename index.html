@@ -3,240 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Mamá ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-page: #f4e9e2; /* Tono crema de fondo */
-            --bg-card: #fdfaf8; /* Tono blanco hueso de la tarjeta */
-            --text-title: #7d4e3a; /* Café oscuro para el título */
-            --text-body: #8c7a6b;  /* Café suave para la dedicatoria */
-        }
-
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--bg-page);
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-        }
-
-        /* Contenedor Principal (Tarjeta) */
-        .card-container {
-            background-color: var(--bg-card);
-            width: 850px;
-            height: 550px;
-            border-radius: 40px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.03);
-        }
-
-        /* Diseño de dos columnas (Rejilla) */
-        .content-layout {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            padding: 60px 60px 20px 70px;
-            flex-grow: 1;
-        }
-
-        /* Lado Izquierdo: Texto */
-        .dedication-text h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 5rem;
-            color: var(--text-title);
-            margin: 0;
-            line-height: 1.1;
-        }
-
-        .dedication-text p {
-            color: var(--text-body);
-            font-size: 1.05rem;
-            line-height: 1.8;
-            margin-top: 30px;
-            max-width: 400px;
-        }
-
-        /* Lado Derecho: Árbol */
-        .tree-display {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-        }
-
-        #tree-canvas {
-            width: 320px;
-            height: 400px;
-            position: relative;
-        }
-
-        .tree-trunk {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            width: 14px;
-            height: 120px;
-            background: #5d4037;
-            border-radius: 10px;
-            transform: translateX(-50%);
-            z-index: 2;
-        }
-
-        /* Estilo de FLORES REALISTAS (Tupidas) */
-        .flower-cluster {
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            opacity: 0;
-            /* Animación de crecimiento con rebote orgánico */
-            animation: bloom-organic 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        /* Pseudoelementos para crear volumen en la flor */
-        .flower-cluster::before, .flower-cluster::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            opacity: 0.8;
-        }
-
-        .flower-cluster::before {
-            transform: rotate(30deg) scale(1.1);
-        }
-
-        .flower-cluster::after {
-            transform: rotate(60deg) scale(0.9);
-        }
-
-        @keyframes bloom-organic {
-            0% { transform: scale(0) translateY(10px); opacity: 0; }
-            100% { transform: scale(1) translateY(0); opacity: 0.95; }
-        }
-
-        /* Sección del Contador Inferior */
-        .counter-box {
-            background-color: #ffffff;
-            margin: 0 60px 50px 60px;
-            padding: 25px 35px;
-            border-radius: 15px;
-            border-top: 3px solid var(--text-title);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            display: flex;
-            justify-content: flex-start;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .counter-label {
-            color: var(--text-title);
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .timer-display {
-            color: #1a1a1a;
-            font-size: 1.3rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
-
-    </style>
+    <title>Árbol que Crece - Recuerdo Digital</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<div class="card-container">
-    <div class="content-layout">
-        <div class="dedication-text">
-            <h1>Te amo Mamá</h1>
-            <p>
-                Para la mujer más increíble de mi vida:<br><br>
-                Gracias por tu amor incondicional, tus cuidados y tu paciencia.<br><br>
-                Eres mi mayor inspiración y mi refugio más seguro.<br><br>
-                — ¡Feliz Día de las Madres!
-            </p>
-        </div>
-
-        <div class="tree-display">
-            <div id="tree-canvas">
-                <div class="tree-trunk"></div>
+    <div class="container">
+        <div class="tree-container">
+            <!-- Cielo con estrellas -->
+            <div class="sky">
+                <div class="stars"></div>
+                <div class="sun"></div>
+            </div>
+            
+            <!-- Árbol -->
+            <svg class="tree-svg" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid meet">
+                <!-- Raíces -->
+                <g class="roots">
+                    <path d="M 200 450 Q 180 480 160 490" stroke="#8B6F47" stroke-width="8" fill="none" stroke-linecap="round"/>
+                    <path d="M 200 450 Q 220 480 240 490" stroke="#8B6F47" stroke-width="8" fill="none" stroke-linecap="round"/>
+                    <path d="M 200 450 Q 200 480 200 495" stroke="#8B6F47" stroke-width="10" fill="none" stroke-linecap="round"/>
+                </g>
+                
+                <!-- Tronco principal -->
+                <path class="trunk" d="M 190 450 L 210 450 L 208 350 L 192 350 Z" fill="#6B5344" />
+                
+                <!-- Ramas principales -->
+                <g class="branches">
+                    <!-- Rama izquierda 1 -->
+                    <path class="branch branch-left-1" d="M 195 400 Q 160 390 140 370" stroke="#7A6654" stroke-width="12" fill="none" stroke-linecap="round"/>
+                    <!-- Rama derecha 1 -->
+                    <path class="branch branch-right-1" d="M 205 400 Q 240 390 260 370" stroke="#7A6654" stroke-width="12" fill="none" stroke-linecap="round"/>
+                    
+                    <!-- Rama izquierda 2 -->
+                    <path class="branch branch-left-2" d="M 194 370 Q 150 355 120 330" stroke="#8B7355" stroke-width="10" fill="none" stroke-linecap="round"/>
+                    <!-- Rama derecha 2 -->
+                    <path class="branch branch-right-2" d="M 206 370 Q 250 355 280 330" stroke="#8B7355" stroke-width="10" fill="none" stroke-linecap="round"/>
+                    
+                    <!-- Rama izquierda 3 -->
+                    <path class="branch branch-left-3" d="M 192 340 Q 150 320 110 290" stroke="#9A8469" stroke-width="8" fill="none" stroke-linecap="round"/>
+                    <!-- Rama derecha 3 -->
+                    <path class="branch branch-right-3" d="M 208 340 Q 250 320 290 290" stroke="#9A8469" stroke-width="8" fill="none" stroke-linecap="round"/>
+                </g>
+                
+                <!-- Follaje (hojas) -->
+                <g class="foliage">
+                    <!-- Nivel superior -->
+                    <circle class="leaf leaf-1" cx="200" cy="220" r="45" fill="#2ecc71" opacity="0"/>
+                    <circle class="leaf leaf-2" cx="140" cy="280" r="50" fill="#27ae60" opacity="0"/>
+                    <circle class="leaf leaf-3" cx="260" cy="280" r="50" fill="#27ae60" opacity="0"/>
+                    <circle class="leaf leaf-4" cx="120" cy="340" r="45" fill="#2ecc71" opacity="0"/>
+                    <circle class="leaf leaf-5" cx="280" cy="340" r="45" fill="#2ecc71" opacity="0"/>
+                    <circle class="leaf leaf-6" cx="100" cy="380" r="40" fill="#27ae60" opacity="0"/>
+                    <circle class="leaf leaf-7" cx="300" cy="380" r="40" fill="#27ae60" opacity="0"/>
+                </g>
+                
+                <!-- Flores y detalles -->
+                <g class="flowers">
+                    <circle class="flower flower-1" cx="150" cy="260" r="6" fill="#e74c3c" opacity="0"/>
+                    <circle class="flower flower-2" cx="250" cy="300" r="6" fill="#e74c3c" opacity="0"/>
+                    <circle class="flower flower-3" cx="180" cy="340" r="6" fill="#f39c12" opacity="0"/>
+                    <circle class="flower flower-4" cx="220" cy="360" r="6" fill="#f39c12" opacity="0"/>
+                </g>
+            </svg>
+            
+            <!-- Contador de momentos -->
+            <div class="counter-box">
+                <div class="counter-label">Años Compartidos</div>
+                <div class="counter-display" id="yearCounter">0</div>
+                <div class="counter-subtext" id="momentText">momentos mágicos</div>
             </div>
         </div>
-    </div>
-
-    <div class="counter-box">
-        <div class="counter-label">Mi vida junto a ti comenzó hace...</div>
-        <div class="timer-display" id="timer">Calculando momentos...</div>
-    </div>
-</div>
-
-<script>
-    // Tu fecha de nacimiento: 22 de diciembre de 2006
-    const birthDate = new Date(2006, 11, 22, 10, 0, 0);
-
-    function updateCounter() {
-        const now = new Date();
-        const diff = now - birthDate;
-
-        const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
-        const days = Math.floor((diff / (1000 * 60 * 60 * 24)) % 365.25);
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const mins = Math.floor((diff / (1000 * 60)) % 60);
-        const secs = Math.floor((diff / 1000) % 60);
-
-        document.getElementById('timer').innerText = 
-            `${years} años, ${days} días, ${hours.toString().padStart(2,'0')}h ${mins.toString().padStart(2,'0')}m ${secs.toString().padStart(2,'0')}s`;
-    }
-
-    function generateHeartTree() {
-        const canvas = document.getElementById('tree-canvas');
         
-        // Paleta de colores densa y tupida (Rojos, Rosas, Amarillos)
-        const colors = [
-            '#d63384', '#ff4d6d', '#ff758f', '#c9184a', '#ffb3c1', 
-            '#e91e63', '#ad1457', '#ffeb3b' // Toque de amarillo como el diseño original
-        ];
-
-        // Aumentamos la cantidad de flores a 180 para que se vea tupido
-        for (let i = 0; i < 180; i++) {
-            const flower = document.createElement('div');
-            flower.className = 'flower-cluster';
-            
-            // Algoritmo paramétrico de corazón denso
-            const t = Math.random() * 2 * Math.PI;
-            const x = 16 * Math.pow(Math.sin(t), 3);
-            const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
-            
-            // Escala para el tamaño total del corazón
-            const scale = 8.5; 
-            flower.style.left = `calc(50% + ${x * scale}px)`;
-            flower.style.top = `calc(35% + ${y * scale}px)`;
-            
-            // Asignamos color y un color ligeramente diferente para el volumen
-            const mainColor = colors[Math.floor(Math.random() * colors.length)];
-            flower.style.backgroundColor = mainColor;
-            flower.style.setProperty('--flower-color-alt', mainColor); // Para pseudoelementos si se desea variar
-            
-            // Retraso de animación para crecimiento orgánico (hasta 5s)
-            flower.style.animationDelay = `${Math.random() * 5}s`;
-            
-            canvas.appendChild(flower);
-        }
-    }
-
-    // Ejecutamos la lógica
-    generateHeartTree();
-    setInterval(updateCounter, 1000);
-    updateCounter(); // Ejecución inicial
-</script>
-
+        <!-- Panel de mensaje emotivo -->
+        <div class="message-panel">
+            <div class="message-content">
+                <div class="message-header">✨ Tu Árbol Especial ✨</div>
+                <div class="message-reveal" id="messageReveal">
+                    <!-- El mensaje se revelará mientras el árbol crece -->
+                </div>
+                <div class="message-footer">Hecho con ❤️ el 10 de Mayo de 2026</div>
+            </div>
+        </div>
+        
+        <!-- Controles personalizables -->
+        <div class="controls">
+            <h3>🎨 Personaliza tu Árbol</h3>
+            <div class="control-group">
+                <label for="treeColor">Color del Árbol:</label>
+                <input type="color" id="treeColor" value="#6B5344">
+            </div>
+            <div class="control-group">
+                <label for="leavesColor">Color de Hojas:</label>
+                <input type="color" id="leavesColor" value="#2ecc71">
+            </div>
+            <div class="control-group">
+                <label for="messageInput">Tu Mensaje Emotivo:</label>
+                <textarea id="messageInput" placeholder="Escribe tu mensaje especial aquí..."></textarea>
+            </div>
+            <div class="control-group">
+                <label for="yearsInput">Años/Momentos Compartidos:</label>
+                <input type="number" id="yearsInput" value="5" min="1">
+            </div>
+            <button id="applyBtn" class="apply-btn">🚀 Aplicar Cambios</button>
+            <button id="resetBtn" class="reset-btn">🔄 Reiniciar Árbol</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
 </body>
 </html>
